@@ -96,4 +96,10 @@ dependencies {
     implementation 'com.google.android.libraries.places:places:2.4.0'
     implementation 'com.google.android.gms:play-services-places:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.1.0'
+
+    //Circular image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //Image picker
+    implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 }

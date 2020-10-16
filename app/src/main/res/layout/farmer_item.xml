@@ -91,6 +91,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="@dimen/sm"
                 android:contentDescription="@string/img_desc"
+                android:onClick="@{ () -> listener.onEdit(farmer) }"
                 android:src="@drawable/edit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/delete" />

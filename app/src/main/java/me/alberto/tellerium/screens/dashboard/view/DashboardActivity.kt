@@ -1,5 +1,6 @@
 package me.alberto.tellerium.screens.dashboard.view
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
@@ -12,6 +13,7 @@ import me.alberto.tellerium.screens.common.base.BaseActivity
 import me.alberto.tellerium.screens.dashboard.adapter.FarmerAdapter
 import me.alberto.tellerium.screens.dashboard.adapter.FarmerAdapter.ItemClickListener
 import me.alberto.tellerium.screens.dashboard.viewmodel.DashboardViewModel
+import me.alberto.tellerium.screens.newfarmer.view.NewFarmerActivity
 import javax.inject.Inject
 
 class DashboardActivity : BaseActivity() {
@@ -27,6 +29,7 @@ class DashboardActivity : BaseActivity() {
         (application as App).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         initView()
+
         getFarmers()
     }
 
@@ -57,8 +60,10 @@ class DashboardActivity : BaseActivity() {
             TODO("Not yet implemented")
         }
 
-        override fun onEdit(id: Long) {
-            TODO("Not yet implemented")
+        override fun onEdit(farmer: FarmerEntity) {
+            val intent = Intent(this@DashboardActivity, NewFarmerActivity::class.java)
+            intent.putExtra(NewFarmerActivity.EDIT_FARMER, farmer)
+            startActivity(intent)
         }
 
     }

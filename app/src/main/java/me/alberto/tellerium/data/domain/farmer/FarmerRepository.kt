@@ -8,4 +8,5 @@ interface FarmerRepository {
     suspend fun getFarmers(): List<FarmerEntity>
     suspend fun deleteFarmer(vararg farmer: FarmerEntity)
     suspend fun updateFarmer(vararg farmer: FarmerEntity)
+    suspend fun addFarmer(vararg farmer: FarmerEntity)
 }

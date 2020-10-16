@@ -8,4 +8,10 @@
     <string name="delete">Delete</string>
     <string name="delete_confirm">Do you want to delete %s?</string>
     <string name="ok">Ok</string>
+    <string name="full_name">Full name</string>
+    <string name="gender">Gender</string>
+    <string name="address">Address</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="add_farm">Add farm</string>
+    <string name="save">Save</string>
 </resources>

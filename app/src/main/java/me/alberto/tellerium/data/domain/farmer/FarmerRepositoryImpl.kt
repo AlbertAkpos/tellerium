@@ -28,4 +28,8 @@ class FarmerRepositoryImpl @Inject constructor(
     override suspend fun updateFarmer(vararg farmer: FarmerEntity) {
         farmerDatabase.farmerDao.updateFarmer(*farmer)
     }
+
+    override suspend fun addFarmer(vararg farmer: FarmerEntity) {
+        farmerDatabase.farmerDao.addFarmer(*farmer)
+    }
 }

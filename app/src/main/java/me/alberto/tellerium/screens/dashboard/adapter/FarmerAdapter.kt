@@ -55,7 +55,7 @@ class FarmerAdapter(private val listener: ItemClickListener) :
     interface ItemClickListener {
         fun onDelete(farmer: FarmerEntity)
         fun onNavigate(id: Long)
-        fun onEdit(id: Long)
+        fun onEdit(farmer: FarmerEntity)
     }
 
 

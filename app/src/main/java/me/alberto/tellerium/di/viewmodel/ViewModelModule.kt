@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import me.alberto.tellerium.screens.dashboard.viewmodel.DashboardViewModel
 import me.alberto.tellerium.screens.login.viewmodel.LoginViewModel
+import me.alberto.tellerium.screens.newfarmer.viewmodel.NewFarmerViewModel
 
 @Module
 abstract class ViewModelModule {
@@ -22,4 +23,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(DashboardViewModel::class)
     abstract fun bindDashboardViewModel(dashboardViewModel: DashboardViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NewFarmerViewModel::class)
+    abstract fun bindNewFarmerViewModel(newFarmerViewModel: NewFarmerViewModel): ViewModel
 }

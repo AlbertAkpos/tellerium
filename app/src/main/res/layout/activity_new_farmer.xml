@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="me.alberto.tellerium.screens.newfarmer.viewmodel.NewFarmerViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".screens.newfarmer.view.NewFarmerActivity">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                tools:context=".screens.add_farmer.AddFarmer">
+
+                <RelativeLayout
+                    android:id="@+id/rela_cont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_img"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/farmer_icon"
+                        app:imageSrc="@{ viewModel.image }"
+                        app:civ_border_color="@color/secondaryDarkColor"
+                        app:civ_border_width="2dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/farmer_icon" />
+
+                    <ImageView
+                        android:id="@+id/add_profile_img"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignEnd="@+id/profile_img"
+                        android:layout_alignBottom="@+id/profile_img"
+                        android:src="@drawable/edit" />
+                </RelativeLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/name_field"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:hint="@string/full_name"
+                    app:boxStrokeColor="@color/secondaryColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rela_cont">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/email_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:text="@={ viewModel.name }"
+                        android:textColor="@color/secondaryDarkColor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/gender_field"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:hint="@string/gender"
+                    app:boxStrokeColor="@color/secondaryColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/name_field"
+                    app:layout_constraintWidth_max="300dp">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/gender_select"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:editable="false"
+                        android:imeOptions="actionDone"
+                        android:text="@={ viewModel.gender }"
+                        tools:ignore="Deprecated,LabelFor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/farmer_address_field"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/address"
+                    app:boxStrokeColor="@color/secondaryColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gender_field">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/farmer_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:text="@={ viewModel.address }"
+                        android:textColor="@color/secondaryDarkColor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--            Date of birth-->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/dob_field"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="@string/date_of_birth"
+                    app:boxStrokeColor="@color/secondaryColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/farmer_address_field">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/dob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:editable="false"
+                        android:inputType="text"
+                        android:text="@={ viewModel.dob }"
+                        android:textColor="@color/secondaryDarkColor" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--Farm list-->
+                <LinearLayout
+                    android:id="@+id/farms_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/md"
+                    android:orientation="horizontal"
+                    app:farms="@{ viewModel.farms }"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dob_field" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/add_farm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="@color/primaryLightColor"
+                    android:text="@string/add_farm"
+                    android:textAllCaps="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dob_field" />
+
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/save_farmer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:onClick="@{ () -> viewModel.onAddFarmer() }"
+                    android:paddingTop="@dimen/sm"
+                    android:paddingBottom="@dimen/sm"
+                    android:text="@string/save"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/add_farm"
+                    app:layout_constraintWidth_max="300dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
