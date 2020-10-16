@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="splash_img_size">100dp</dimen>
+    <dimen name="sm">10dp</dimen>
+    <dimen name="md">20dp</dimen>
+</resources>

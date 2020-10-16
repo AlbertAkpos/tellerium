@@ -1,10 +1,27 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
+
+    dataBinding {
+        enabled true
+    }
+    buildFeatures {
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 
     defaultConfig {
         applicationId "me.alberto.tellerium"
@@ -34,4 +51,49 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    //life cycle components
+    def lifeCycleVersion = '2.2.0'
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifeCycleVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifeCycleVersion"
+    implementation "androidx.activity:activity-ktx:1.1.0"
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifeCycleVersion"
+    // Lifecycles only (without ViewModel or LiveData)
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifeCycleVersion"
+
+    //Dagger
+    implementation 'com.google.dagger:dagger:2.27'
+    kapt 'com.google.dagger:dagger-compiler:2.27'
+
+    //Material
+    implementation 'com.google.android.material:material:1.2.1'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.12.0"
+
+    //Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+    //Security
+    implementation "androidx.security:security-crypto:1.1.0-alpha02"
+
+    //Gson
+    implementation "com.google.code.gson:gson:2.8.6"
+    //Glide
+    implementation "com.github.bumptech.glide:glide:4.11.0"
+
+    //Room
+    def room_version = "2.2.5"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    //Google map
+    implementation 'com.google.android.libraries.places:places:2.4.0'
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
 }
