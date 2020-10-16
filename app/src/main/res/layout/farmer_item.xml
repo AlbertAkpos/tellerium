@@ -8,6 +8,10 @@
         <variable
             name="farmer"
             type="me.alberto.tellerium.data.local.db.FarmerEntity" />
+
+        <variable
+            name="listener"
+            type="me.alberto.tellerium.screens.dashboard.adapter.FarmerAdapter.ItemClickListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -56,17 +60,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:textStyle="bold"
-                    android:textAppearance="@style/TextAppearance.App.ListPrimary"
                     android:text="@{ farmer.name }"
+                    android:textAppearance="@style/TextAppearance.App.ListPrimary"
+                    android:textStyle="bold"
                     tools:text="Umogun Shedrak" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.App.ListPrimary"
                     android:text="@{ farmer.dob }"
+                    android:textAppearance="@style/TextAppearance.App.ListPrimary"
                     android:textSize="15sp"
                     tools:text="1980-01-18" />
 
@@ -74,8 +78,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
-                    android:textAppearance="@style/TextAppearance.App.ListPrimary"
                     android:text="@{ farmer.gender }"
+                    android:textAppearance="@style/TextAppearance.App.ListPrimary"
                     android:textSize="15sp"
                     tools:text="Male" />
 
@@ -93,12 +97,13 @@
 
             <ImageView
                 android:id="@+id/delete"
-                android:src="@drawable/delete"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="@dimen/sm"
                 android:layout_marginBottom="@dimen/sm"
                 android:contentDescription="@string/img_desc"
+                android:onClick="@{ () -> listener.onDelete(farmer) }"
+                android:src="@drawable/delete"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 

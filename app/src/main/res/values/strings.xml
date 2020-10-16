@@ -4,4 +4,8 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="delete_confirm">Do you want to delete %s?</string>
+    <string name="ok">Ok</string>
 </resources>

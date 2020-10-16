@@ -25,23 +25,35 @@ class DashboardViewModel @Inject constructor(
             try {
                 getFarmersUseCase.execute()
                 val farmers = farmerRepository.getFarmers()
-                println("""
-                    
-                   farmers: ${farmers} 
-                    
-                """)
                 _farmers.value = farmers
             } catch (exp: Exception) {
                 Timber.d(exp.message.toString())
-                println("""
-                    
-                    errro: ${exp.message}
-                    
-                """)
+
             }
         }
     }
 
+
+    fun onDeleteFarmer(farmer: FarmerEntity) {
+        viewModelScope.launch {
+            try {
+                farmerRepository.deleteFarmer(farmer)
+                updateValues()
+            } catch (exp: Exception) {
+                Timber.d("Error deleting: ${exp.message}")
+            }
+        }
+    }
+
+    private fun updateValues() {
+        viewModelScope.launch {
+            try {
+                _farmers.value = farmerRepository.getFarmers()
+            } catch (exp: Exception) {
+                Timber.d("Error: ${exp.message}")
+            }
+        }
+    }
 
 
 }

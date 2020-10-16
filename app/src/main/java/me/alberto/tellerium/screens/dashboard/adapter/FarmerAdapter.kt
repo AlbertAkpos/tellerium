@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import me.alberto.tellerium.data.domain.model.Farmer
 import me.alberto.tellerium.data.local.db.FarmerEntity
 import me.alberto.tellerium.databinding.FarmerItemBinding
 
 
-class FarmerAdapter :
+class FarmerAdapter(private val listener: ItemClickListener) :
     ListAdapter<FarmerEntity, RecyclerView.ViewHolder>(DiffCallback()) {
 
 
@@ -19,16 +18,18 @@ class FarmerAdapter :
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is MenuItemHolder) holder.bind(getItem(position))
+        if (holder is MenuItemHolder) holder.bind(getItem(position), listener)
     }
 
     class MenuItemHolder(private val binding: FarmerItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            farmer: FarmerEntity
+            farmer: FarmerEntity,
+            listener: ItemClickListener
         ) {
             binding.farmer = farmer
+            binding.listener = listener
             binding.executePendingBindings()
         }
 
@@ -43,7 +44,7 @@ class FarmerAdapter :
 
     class DiffCallback : DiffUtil.ItemCallback<FarmerEntity>() {
         override fun areItemsTheSame(oldItem: FarmerEntity, newItem: FarmerEntity): Boolean {
-            return oldItem === newItem
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: FarmerEntity, newItem: FarmerEntity): Boolean {
@@ -51,7 +52,11 @@ class FarmerAdapter :
         }
     }
 
-
+    interface ItemClickListener {
+        fun onDelete(farmer: FarmerEntity)
+        fun onNavigate(id: Long)
+        fun onEdit(id: Long)
+    }
 
 
 }
