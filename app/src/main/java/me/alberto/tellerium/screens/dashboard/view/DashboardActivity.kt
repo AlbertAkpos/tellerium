@@ -29,8 +29,12 @@ class DashboardActivity : BaseActivity() {
         (application as App).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         initView()
-
         getFarmers()
+        setupClickListeners()
+    }
+
+    private fun setupClickListeners() {
+        binding.fab.setOnClickListener { goToNewFarmerActivity() }
     }
 
     private fun getFarmers() {
@@ -57,14 +61,18 @@ class DashboardActivity : BaseActivity() {
         }
 
         override fun onNavigate(id: Long) {
-            TODO("Not yet implemented")
         }
 
         override fun onEdit(farmer: FarmerEntity) {
-            val intent = Intent(this@DashboardActivity, NewFarmerActivity::class.java)
-            intent.putExtra(NewFarmerActivity.EDIT_FARMER, farmer)
-            startActivity(intent)
+            goToNewFarmerActivity(farmer)
         }
+
+    }
+
+    private fun goToNewFarmerActivity(extra: FarmerEntity? = null) {
+        val intent = Intent(this@DashboardActivity, NewFarmerActivity::class.java)
+        intent.putExtra(NewFarmerActivity.EDIT_FARMER, extra)
+        startActivity(intent)
 
     }
 }

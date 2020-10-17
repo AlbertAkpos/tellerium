@@ -8,6 +8,7 @@ import me.alberto.tellerium.di.module.LocalModule
 import me.alberto.tellerium.di.viewmodel.ViewModelModule
 import me.alberto.tellerium.screens.dashboard.view.DashboardActivity
 import me.alberto.tellerium.screens.login.view.LoginActivity
+import me.alberto.tellerium.screens.map.view.MapsActivity
 import me.alberto.tellerium.screens.newfarmer.view.NewFarmerActivity
 import me.alberto.tellerium.screens.splash.view.Splash
 
@@ -22,4 +23,5 @@ interface AppComponent {
     fun inject(activity: Splash)
     fun inject(activity: DashboardActivity)
     fun inject(activity: NewFarmerActivity)
+    fun inject(activity: MapsActivity)
 }

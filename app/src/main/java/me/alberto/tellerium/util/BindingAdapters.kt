@@ -21,9 +21,11 @@ fun TextInputLayout.showError(errorMessage: String?) {
 
 @BindingAdapter("app:imageSrc")
 fun ImageView.loadImageFromUrl(url: String?) {
-    Glide.with(context)
-        .load(url)
-        .into(this)
+    url?.let {
+        Glide.with(context)
+            .load(url)
+            .into(this)
+    }
 }
 
 @BindingAdapter("app:farmers")
@@ -49,6 +51,13 @@ fun LinearLayout.addFarms(farmsList: List<Farm>?) {
             linearLayout.addView(btn)
         }
     }
+}
+
+@BindingAdapter("app:data")
+fun AutoCompleteTextView.setGender(list: List<String>?) {
+    val adapter =
+        ArrayAdapter(context, R.layout.farm_item, list ?: listOf())
+    setAdapter(adapter)
 }
 
 

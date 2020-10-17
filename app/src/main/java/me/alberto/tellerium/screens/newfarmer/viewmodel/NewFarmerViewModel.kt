@@ -21,6 +21,7 @@ class NewFarmerViewModel @Inject constructor(private val repository: FarmerRepos
     val address = MutableLiveData<String>()
     val dob = MutableLiveData<String>()
     val image = MutableLiveData<String>()
+    val genderList = MutableLiveData(listOf("Male", "Female"))
 
 
     fun onAddFarmer() {

@@ -13,9 +13,3 @@ fun View.hideKeyboard() {
     imm.hideSoftInputFromWindow(windowToken, 0)
 }
 
-fun AutoCompleteTextView.setGender() {
-    val texts = listOf("Male", "Female")
-    val adapter =
-        ArrayAdapter(context, R.layout.farm_item, texts)
-    setAdapter(adapter)
-}

@@ -1,5 +1,6 @@
 package me.alberto.tellerium.data.local.db
 
+import android.location.Location
 import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
@@ -29,19 +30,17 @@ data class FarmerEntity(
 @Parcelize
 data class Farm(
     val name: String,
-    @Embedded
-    val location: @RawValue FarmLocation,
-    val coordinates: List<LatLng>,
-    val farmerOwnerId: UUID
+    val location: Location,
+    val coordinates: List<LatLng>
 ) : Parcelable
 
-@Parcelize
-data class FarmLocation(
-    var lat: Double,
-    var long: Double
-) : Parcelable {
-    constructor() : this(0.0, 0.0)
-}
+//@Parcelize
+//data class FarmLocation(
+//    var lat: Double,
+//    var long: Double
+//) : Parcelable {
+//    constructor() : this(0.0, 0.0)
+//}
 
 
 class Converter {
