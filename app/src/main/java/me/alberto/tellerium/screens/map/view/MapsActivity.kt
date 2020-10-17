@@ -73,7 +73,6 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         initView()
         turnOnLocationWithPermissionCheck()
-        setupObservers()
     }
 
     @SuppressLint("MissingPermission")
@@ -83,7 +82,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
         }
 
         locationClient = FusedLocationClient(this)
-        val locationParams = LocationParams(10_000, 0.1)
+        val locationParams = LocationParams(100_000, 10.0)
         locationClient.observeLocation(locationListener, locationParams)
     }
 
@@ -187,10 +186,13 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
         mMap = googleMap
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        setupObservers()
     }
 
     private fun clearMap() {
-        mMap.clear()
+        //mMap.clear()
+        polylines.forEach { it.remove() }
+        markers.forEach { it.remove() }
         viewModel.clearValues()
     }
 
@@ -201,7 +203,8 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
         }
 
         override fun onGpsError(message: String) {
-
+            showMessage(binding.root, message)
+            openLocationSettings()
         }
     }
 
@@ -245,7 +248,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
     private val locationListener = object : LocationClientListener {
         override fun onLocation(location: Location) {
             if (farm == null) {
-                moveDeviceCamera(location, true)
+                moveDeviceCamera(location)
                 viewModel.setFarmAddress(this@MapsActivity, location)
             } else {
                 farm?.let {
@@ -267,7 +270,8 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
                 val location = Location(LocationManager.GPS_PROVIDER)
                 location.latitude = it.latitude
                 location.longitude = it.longitude
-                moveDeviceCamera(location)
+                moveDeviceCamera(location, true)
+                locationClient.cleanUp()
                 viewModel.setFarmAddress(this@MapsActivity, location)
             }
         }
@@ -303,11 +307,6 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
         mMap.uiSettings.isMyLocationButtonEnabled = true
     }
 
-
-    override fun onResume() {
-        super.onResume()
-
-    }
 
     companion object {
         const val FARM = "farm"
