@@ -86,7 +86,8 @@ fun List<_Farmer>.toDomainFarm(): List<FarmerEntity> {
             address = it.address,
             gender = it.gender,
             name = "${it.firstName} ${it.surname} ${it.middleName}",
-            dob = it.dob
+            dob = it.dob,
+            id = it.farmerID
         )
     }
 }

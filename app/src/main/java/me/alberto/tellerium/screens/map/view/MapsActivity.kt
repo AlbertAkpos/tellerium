@@ -108,7 +108,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
                 binding.clear.isEnabled = true
             }
 
-            if (list.size > 3) {
+            if (list.size > 2) {
                 binding.captureBtn.isEnabled = true
             }
         })
@@ -143,6 +143,10 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
     private fun setupClickListeners() {
         mMap.setOnMapClickListener { latLng ->
             viewModel.updateFarmCoordinates(latLng)
+            viewModel.setFarmAddress(
+                this@MapsActivity,
+                makeLocation(latLng.latitude, latLng.longitude)
+            )
         }
 
         binding.captureBtn.setOnClickListener {
@@ -186,7 +190,12 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
         mMap = googleMap
         mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-        setupObservers()
+        if (farm == null) {
+            setupObservers()
+        } else {
+            drawFarmPolygon(farm!!.coordinates)
+            moveDeviceCamera(farm!!.location)
+        }
     }
 
     private fun clearMap() {
@@ -204,7 +213,6 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
 
         override fun onGpsError(message: String) {
             showMessage(binding.root, message)
-            openLocationSettings()
         }
     }
 
@@ -249,12 +257,6 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
         override fun onLocation(location: Location) {
             if (farm == null) {
                 moveDeviceCamera(location)
-                viewModel.setFarmAddress(this@MapsActivity, location)
-            } else {
-                farm?.let {
-                    moveDeviceCamera(it.location)
-                    drawFarmPolygon(it.coordinates)
-                }
             }
         }
 
@@ -267,12 +269,11 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
     private val placesSelectedListener = object : PlaceSelectionListener {
         override fun onPlaceSelected(place: Place) {
             place.latLng?.let {
-                val location = Location(LocationManager.GPS_PROVIDER)
-                location.latitude = it.latitude
-                location.longitude = it.longitude
-                moveDeviceCamera(location, true)
-                locationClient.cleanUp()
-                viewModel.setFarmAddress(this@MapsActivity, location)
+                if(::locationClient.isInitialized) {
+                    val location = makeLocation(it.latitude, it.longitude)
+                    moveDeviceCamera(location, true)
+                    locationClient.cleanUp()
+                }
             }
         }
 
@@ -285,8 +286,6 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
         val polygonOptions = PolygonOptions().addAll(coordinates).clickable(true)
         val polygon = mMap.addPolygon(polygonOptions)
         polygon.fillColor = Color.GREEN
-
-        showMessage(binding.root, "cp")
     }
 
     @Suppress("missingPermission")
@@ -302,9 +301,16 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
             mMap.addMarker(MarkerOptions().position(latLng))
         }
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15F))
-        mMap.uiSettings.isZoomControlsEnabled = true
         mMap.isMyLocationEnabled = true
         mMap.uiSettings.isMyLocationButtonEnabled = true
+    }
+
+
+    private fun makeLocation(latitude: Double, longitude: Double): Location {
+        val location = Location(LocationManager.GPS_PROVIDER)
+        location.latitude = latitude
+        location.longitude = longitude
+        return location
     }
 
 

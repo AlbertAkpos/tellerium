@@ -9,7 +9,9 @@ import me.alberto.tellerium.data.domain.farmer.FarmerRepository
 import me.alberto.tellerium.data.local.db.Farm
 import me.alberto.tellerium.data.local.db.FarmerEntity
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class NewFarmerViewModel @Inject constructor(private val repository: FarmerRepository) :
     ViewModel() {
@@ -22,6 +24,7 @@ class NewFarmerViewModel @Inject constructor(private val repository: FarmerRepos
     val dob = MutableLiveData<String>()
     val image = MutableLiveData<String>()
     val genderList = MutableLiveData(listOf("Male", "Female"))
+    val farmList = MutableLiveData<ArrayList<Farm>>()
 
 
     fun onAddFarmer() {
@@ -34,7 +37,8 @@ class NewFarmerViewModel @Inject constructor(private val repository: FarmerRepos
                     dob = dob.value!!,
                     gender = gender.value!!,
                     name = name.value!!,
-                    farms = _farms.value
+                    farms = _farms.value,
+                    id = UUID.randomUUID().toString()
                 )
                 repository.addFarmer(farmer)
             } catch (exp: Exception) {
@@ -60,6 +64,23 @@ class NewFarmerViewModel @Inject constructor(private val repository: FarmerRepos
         dob.value = date
     }
 
+    fun setFarmList(farm: Farm) {
+
+        var current = ArrayList<Farm>()
+        if (_farms.value != null){
+            current.addAll(_farms.value!!)
+        }
+        current.add(farm)
+
+
+        _farms.value = current
+        println("""
+           
+            current: ${current.size}
+            farms: ${_farms.value}
+        """)
+    }
+
     fun editFarmer(farmerToEdit: FarmerEntity?) {
         farmerToEdit?.let {
             setImage(farmerToEdit.imageUrl)
@@ -69,5 +90,10 @@ class NewFarmerViewModel @Inject constructor(private val repository: FarmerRepos
             address.value = farmerToEdit.address
             gender.value = farmerToEdit.gender
         }
+    }
+
+    fun deleteFarm(farm: Farm) {
+        val current = _farms.value
+        _farms.value = current?.filter { it.name != farm.name }
     }
 }

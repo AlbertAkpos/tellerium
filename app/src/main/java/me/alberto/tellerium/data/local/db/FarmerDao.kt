@@ -7,7 +7,7 @@ interface FarmerDao {
     @Query("SELECT * from farmer_table")
     suspend fun getFarmers(): List<FarmerEntity>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addFarmer(vararg farmer: FarmerEntity)
 
     @Delete

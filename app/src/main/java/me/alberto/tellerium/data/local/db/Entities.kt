@@ -17,8 +17,8 @@ import java.util.*
 @Entity(tableName = TABLE_NAME)
 @Parcelize
 data class FarmerEntity(
-    @PrimaryKey(autoGenerate = true)
-    val id: Long = 0L,
+    @PrimaryKey
+    val id: String,
     val imageUrl: String,
     val name: String,
     val gender: String,

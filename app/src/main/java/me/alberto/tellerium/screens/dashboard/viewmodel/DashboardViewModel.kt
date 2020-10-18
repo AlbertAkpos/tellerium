@@ -40,6 +40,7 @@ class DashboardViewModel @Inject constructor(
                 farmerRepository.deleteFarmer(farmer)
                 updateValues()
             } catch (exp: Exception) {
+                updateValues()
                 Timber.d("Error deleting: ${exp.message}")
             }
         }

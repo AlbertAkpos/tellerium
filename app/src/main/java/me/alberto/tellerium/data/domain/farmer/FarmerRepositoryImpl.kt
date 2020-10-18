@@ -14,6 +14,7 @@ class FarmerRepositoryImpl @Inject constructor(
     @Suppress("unchecked_cast")
     override suspend fun getRemoteFarmers() {
         val remoteFarmers = remoteDataSource.getFarmers()
+        farmerDatabase.farmerDao
         farmerDatabase.farmerDao.addFarmer(*remoteFarmers.toTypedArray())
     }
 

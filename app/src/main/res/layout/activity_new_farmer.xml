@@ -156,13 +156,13 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!--Farm list-->
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/farms_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/md"
-                    android:orientation="horizontal"
                     app:farms="@{ viewModel.farms }"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/dob_field" />

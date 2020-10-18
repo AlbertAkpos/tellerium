@@ -44,15 +44,15 @@
             app:layout_constraintTop_toBottomOf="@+id/autocomplete_fragment"
             tools:context=".screens.map.view.MapsActivity" />
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/capture_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/md"
             android:layout_marginBottom="@dimen/md"
-            android:backgroundTint="@color/primaryDarkColor"
             android:enabled="false"
             android:text="@string/capture_location"
+            app:cornerRadius="@dimen/md"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

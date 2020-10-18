@@ -11,11 +11,13 @@ import com.google.android.material.snackbar.Snackbar
 import com.theartofdev.edmodo.cropper.CropImage
 import me.alberto.tellerium.App
 import me.alberto.tellerium.R
+import me.alberto.tellerium.data.local.db.Farm
 import me.alberto.tellerium.data.local.db.FarmerEntity
 import me.alberto.tellerium.databinding.ActivityNewFarmerBinding
 import me.alberto.tellerium.screens.common.base.BaseActivity
 import me.alberto.tellerium.screens.common.dialogs.DateModal
 import me.alberto.tellerium.screens.map.view.MapsActivity
+import me.alberto.tellerium.screens.newfarmer.adapter.FarmAdapter
 import me.alberto.tellerium.screens.newfarmer.viewmodel.NewFarmerViewModel
 import me.alberto.tellerium.util.DomainDateFormater
 import permissions.dispatcher.*
@@ -45,6 +47,7 @@ class NewFarmerActivity : BaseActivity(), DateModal.DatePickerListener {
         super.onCreate(savedInstanceState)
         initView()
         initToolbar()
+        setObservers()
         setClickListeners()
     }
 
@@ -65,9 +68,22 @@ class NewFarmerActivity : BaseActivity(), DateModal.DatePickerListener {
 
     private fun initView() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_farmer)
+        binding.farmsContainer.adapter = FarmAdapter(farmItemListener)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
         viewModel.editFarmer(farmerToEdit)
+    }
+
+    private val farmItemListener = object : FarmAdapter.ItemClickListener{
+        override fun onDelete(farm: Farm) {
+            viewModel.deleteFarm(farm)
+        }
+
+        override fun onNavigate(farm: Farm) {
+           val intent = Intent(this@NewFarmerActivity, MapsActivity::class.java)
+            intent.putExtra(MapsActivity.FARM, farm)
+            startActivity(intent)
+        }
     }
 
     private fun initToolbar() {
@@ -87,6 +103,11 @@ class NewFarmerActivity : BaseActivity(), DateModal.DatePickerListener {
     }
 
 
+    private fun setObservers() {
+
+    }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE
@@ -95,6 +116,12 @@ class NewFarmerActivity : BaseActivity(), DateModal.DatePickerListener {
         ) {
             val imageUrl = CropImage.getActivityResult(data).uri.toString()
             viewModel.setImage(imageUrl)
+        }
+
+        if (requestCode == MAP_RC && data != null) {
+
+            val farm = data.getParcelableExtra<Farm>(MapsActivity.FARM)
+            farm?.let { viewModel.setFarmList(farm) }
         }
     }
 
