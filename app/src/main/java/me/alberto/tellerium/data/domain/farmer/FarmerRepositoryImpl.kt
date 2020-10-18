@@ -19,7 +19,7 @@ class FarmerRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getFarmers(): List<FarmerEntity> {
-        return farmerDatabase.farmerDao.getFarmers()
+        return farmerDatabase.farmerDao.getFarmers().reversed()
     }
 
     override suspend fun deleteFarmer(vararg farmer: FarmerEntity) {

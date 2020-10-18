@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import com.google.android.gms.maps.model.LatLng
 import me.alberto.tellerium.data.local.db.Farm
 import me.alberto.tellerium.util.location.LocationState
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -47,13 +48,18 @@ class MapViewModel @Inject constructor() : ViewModel() {
     }
 
     fun setFarmAddress(context: Context, location: Location) {
-        val geoCoder = Geocoder(context, Locale.getDefault())
-        val addresses = geoCoder.getFromLocation(
-            location.latitude,
-            location.longitude, 1
-        )
-        _farmAddress.value = addresses[0].getAddressLine(0)
         farmLocation.value = location
+        try {
+            val geoCoder = Geocoder(context, Locale.getDefault())
+            val addresses = geoCoder.getFromLocation(
+                location.latitude,
+                location.longitude, 1
+            )
+
+            _farmAddress.value = addresses[0].getAddressLine(0)
+        } catch (exp: Exception) {
+            Timber.d("Error: ${exp.message}")
+        }
     }
 
     fun clearValues() {
@@ -63,7 +69,7 @@ class MapViewModel @Inject constructor() : ViewModel() {
 
     fun navigate() {
         val farm = Farm(
-            _farmAddress.value.toString(),
+            name = _farmAddress.value ?: farmLocation.value.toString(),
             coordinates = _farmCoordinates.value!!,
             location = farmLocation.value!!
         )

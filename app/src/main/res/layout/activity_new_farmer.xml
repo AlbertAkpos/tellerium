@@ -185,9 +185,8 @@
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/save_farmer"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/btn_height"
                     android:layout_marginTop="50dp"
-                    android:onClick="@{ () -> viewModel.onAddFarmer() }"
                     android:paddingTop="@dimen/sm"
                     android:paddingBottom="@dimen/sm"
                     android:text="@string/save"

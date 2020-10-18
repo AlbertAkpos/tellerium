@@ -14,7 +14,7 @@ interface FarmerDao {
     suspend fun deleteFarmer(vararg farmer: FarmerEntity)
 
     @Update
-    fun updateFarmer(vararg farmer: FarmerEntity)
+    suspend fun updateFarmer(vararg farmer: FarmerEntity)
 
 
 }

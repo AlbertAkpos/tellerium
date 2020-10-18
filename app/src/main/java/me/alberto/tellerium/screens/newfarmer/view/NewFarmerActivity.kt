@@ -16,12 +16,15 @@ import me.alberto.tellerium.data.local.db.FarmerEntity
 import me.alberto.tellerium.databinding.ActivityNewFarmerBinding
 import me.alberto.tellerium.screens.common.base.BaseActivity
 import me.alberto.tellerium.screens.common.dialogs.DateModal
+import me.alberto.tellerium.screens.dashboard.view.DashboardActivity
 import me.alberto.tellerium.screens.map.view.MapsActivity
 import me.alberto.tellerium.screens.newfarmer.adapter.FarmAdapter
 import me.alberto.tellerium.screens.newfarmer.viewmodel.NewFarmerViewModel
 import me.alberto.tellerium.util.DomainDateFormater
 import permissions.dispatcher.*
+import java.util.*
 import javax.inject.Inject
+import kotlin.concurrent.schedule
 
 const val MAP_RC = 101
 
@@ -64,6 +67,9 @@ class NewFarmerActivity : BaseActivity(), DateModal.DatePickerListener {
         binding.addFarm.setOnClickListener {
             canGetLocationWithPermissionCheck()
         }
+
+        binding.saveFarmer.setOnClickListener {
+            viewModel.onAddFarmer() }
     }
 
     private fun initView() {
@@ -104,7 +110,20 @@ class NewFarmerActivity : BaseActivity(), DateModal.DatePickerListener {
 
 
     private fun setObservers() {
+        viewModel.save.observe(this, {
+            if (it) {
+                showMessage(binding.root, "Saving")
+                Timer().schedule(1000){
+                    goToDashboard()
+                }
 
+            }
+        })
+    }
+
+    private fun goToDashboard() {
+        startActivity(Intent(this, DashboardActivity::class.java))
+        finish()
     }
 
 

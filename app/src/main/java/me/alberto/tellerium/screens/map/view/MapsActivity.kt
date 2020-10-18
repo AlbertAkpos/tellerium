@@ -36,6 +36,7 @@ import me.alberto.tellerium.util.location.LocationSettingsUtils
 import me.alberto.tellerium.util.location.LocationState
 import me.alberto.tellerium.util.location.client.FusedLocationClient
 import me.alberto.tellerium.util.location.client.LocationClientListener
+import me.alberto.tellerium.util.makeLocation
 import permissions.dispatcher.*
 import timber.log.Timber
 import java.util.*
@@ -91,7 +92,6 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
             if (it == LocationState.TURNED_ON) {
                 initLocationClient()
                 setupClickListeners()
-                showMessage(binding.root, "Turned on")
             }
         })
 
@@ -123,8 +123,8 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun dropMarkers(list: ArrayList<LatLng>) {
-        for (marker in list) {
-            val markerOptions = MarkerOptions().position(marker)
+        for (latLng in list) {
+            val markerOptions = MarkerOptions().position(latLng)
             val marker = mMap.addMarker(markerOptions)
             markers.add(marker)
         }
@@ -306,12 +306,7 @@ class MapsActivity : BaseActivity(), OnMapReadyCallback {
     }
 
 
-    private fun makeLocation(latitude: Double, longitude: Double): Location {
-        val location = Location(LocationManager.GPS_PROVIDER)
-        location.latitude = latitude
-        location.longitude = longitude
-        return location
-    }
+
 
 
     companion object {
