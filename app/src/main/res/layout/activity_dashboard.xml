@@ -8,6 +8,7 @@
         <variable
             name="viewModel"
             type="me.alberto.tellerium.screens.dashboard.viewmodel.DashboardViewModel" />
+        <import type="android.view.View"/>
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -142,6 +143,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/stats"
                 tools:listitem="@layout/farmer_item" />
 
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{ viewModel.loading ? View.VISIBLE : View.GONE }"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -156,6 +167,8 @@
             android:src="@drawable/ic_plus_symbol_button"
             app:layout_anchor="@id/constraint_container"
             app:layout_anchorGravity="bottom|right|end" />
+
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
