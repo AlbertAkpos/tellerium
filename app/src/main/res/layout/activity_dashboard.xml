@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="me.alberto.tellerium.screens.dashboard.viewmodel.DashboardViewModel" />
+        <import type="android.view.View"/>
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_container"
+            android:layout_width="match_parent"
+            android:background="@color/faintGrey"
+            android:layout_height="match_parent"
+            tools:context=".screens.dashboard.view.DashboardActivity">
+
+
+
+<!--            Farmers card-->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/stats"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/sm"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sm"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.6">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/sm"
+                    >
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Farmers"
+                        android:textColor="@color/mattBlack"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:drawableTopCompat="@drawable/farmer_icon" />
+
+                    <TextView
+                        android:id="@+id/farmers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="200"
+                        android:textColor="@color/mattBlack"
+                        android:textSize="27sp"
+                        android:layout_marginLeft="@dimen/sm"
+                        app:layout_constraintStart_toEndOf="@+id/textView"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/men_stat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/man_stat_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginLeft="@dimen/sm"
+                        tools:text="200%"
+                        android:gravity="center"
+                        app:layout_constraintStart_toEndOf="@+id/farmers"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/women_stat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/woman_stat_icon"
+                        android:gravity="center"
+                        app:layout_constraintStart_toStartOf="@+id/men_stat"
+                        app:layout_constraintTop_toBottomOf="@+id/men_stat"
+                        tools:text="20%" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+<!--            Farmland card-->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/stats_farmland"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/sm"
+                android:layout_marginTop="@dimen/sm"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.4">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/sm"
+                    >
+
+                    <TextView
+                        android:id="@+id/farm_land_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/farm_land_icon"
+                        android:gravity="center"
+                        android:text="Farm land"
+                        android:textColor="@color/mattBlack"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/farm_land"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="200"
+                        android:textColor="@color/mattBlack"
+                        android:textSize="27sp"
+                        android:layout_marginLeft="@dimen/sm"
+                        app:layout_constraintStart_toEndOf="@+id/farm_land_icon"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:paddingBottom="@dimen/sm"
+                app:farmers="@{ viewModel.farmers }"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stats"
+                tools:listitem="@layout/farmer_item" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{ viewModel.loading ? View.VISIBLE : View.GONE }"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/md"
+            android:layout_marginBottom="@dimen/md"
+            app:tint="@color/white"
+            android:backgroundTint="@color/primaryDarkColor"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+            android:src="@drawable/ic_plus_symbol_button"
+            app:layout_anchor="@id/constraint_container"
+            app:layout_anchorGravity="bottom|right|end" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

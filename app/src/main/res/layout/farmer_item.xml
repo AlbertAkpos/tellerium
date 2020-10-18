@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="farmer"
+            type="me.alberto.tellerium.data.local.db.FarmerEntity" />
+
+        <variable
+            name="listener"
+            type="me.alberto.tellerium.screens.dashboard.adapter.FarmerAdapter.ItemClickListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/sm"
+        android:layout_marginTop="@dimen/sm"
+        android:layout_marginRight="@dimen/sm"
+        app:cardCornerRadius="@dimen/sm">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/image_container"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:cardCornerRadius="@dimen/sm"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/img_desc"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_farmer_icon"
+                    app:imageSrc="@{ farmer.imageUrl }" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/sm"
+                android:layout_marginTop="@dimen/sm"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_container"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@{ farmer.name }"
+                    android:textAppearance="@style/TextAppearance.App.ListPrimary"
+                    android:textStyle="bold"
+                    tools:text="Umogun Shedrak" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@{ farmer.dob }"
+                    android:textAppearance="@style/TextAppearance.App.ListPrimary"
+                    android:textSize="15sp"
+                    tools:text="1980-01-18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@{ farmer.gender }"
+                    android:textAppearance="@style/TextAppearance.App.ListPrimary"
+                    android:textSize="15sp"
+                    tools:text="Male" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="@dimen/sm"
+                android:contentDescription="@string/img_desc"
+                android:onClick="@{ () -> listener.onEdit(farmer) }"
+                android:src="@drawable/edit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/delete" />
+
+            <ImageView
+                android:id="@+id/delete"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/sm"
+                android:layout_marginBottom="@dimen/sm"
+                android:contentDescription="@string/img_desc"
+                android:onClick="@{ () -> listener.onDelete(farmer) }"
+                android:src="@drawable/delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

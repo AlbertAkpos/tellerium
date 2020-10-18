@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">Tellerium</string>
+    <string name="img_desc">image</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
+    <string name="delete_confirm">Do you want to delete %s?</string>
+    <string name="ok">Ok</string>
+    <string name="full_name">Full name</string>
+    <string name="gender">Gender</string>
+    <string name="address">Address</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="add_farm">Add farm</string>
+    <string name="save">Save</string>
+    <string name="edit">Edit</string>
+    <string name="create">Create</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="allow_permissions">Allow permissions</string>
+    <string name="permission_rationale">For the app to work, please allow permissions</string>
+    <string name="permission_denied_rationale">You need to enabled location permission</string>
+    <string name="location_setup_inadequate">Please go to settings to fix location setup</string>
+    <string name="needs_location_to_work">App cannot work without location</string>
+    <string name="map_key" translatable="false">AIzaSyBhgm7n4aegc_Tr9F4warRE1ZhnsxMaCuY</string>
+    <string name="capture_location">Capture location</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="percent">%s%%</string>
+
 </resources>
