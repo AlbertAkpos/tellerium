@@ -20,7 +20,6 @@ interface AppComponent {
     }
 
     fun inject(activity: LoginActivity)
-    fun inject(activity: Splash)
     fun inject(activity: DashboardActivity)
     fun inject(activity: NewFarmerActivity)
     fun inject(activity: MapsActivity)

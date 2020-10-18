@@ -24,5 +24,8 @@
     <string name="needs_location_to_work">App cannot work without location</string>
     <string name="map_key" translatable="false">AIzaSyBhgm7n4aegc_Tr9F4warRE1ZhnsxMaCuY</string>
     <string name="capture_location">Capture location</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="percent">%s%%</string>
 
 </resources>

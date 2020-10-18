@@ -69,7 +69,8 @@ class NewFarmerActivity : BaseActivity(), DateModal.DatePickerListener {
         }
 
         binding.saveFarmer.setOnClickListener {
-            viewModel.onAddFarmer() }
+            viewModel.onAddFarmer()
+        }
     }
 
     private fun initView() {
@@ -80,13 +81,13 @@ class NewFarmerActivity : BaseActivity(), DateModal.DatePickerListener {
         viewModel.editFarmer(farmerToEdit)
     }
 
-    private val farmItemListener = object : FarmAdapter.ItemClickListener{
+    private val farmItemListener = object : FarmAdapter.ItemClickListener {
         override fun onDelete(farm: Farm) {
             viewModel.deleteFarm(farm)
         }
 
         override fun onNavigate(farm: Farm) {
-           val intent = Intent(this@NewFarmerActivity, MapsActivity::class.java)
+            val intent = Intent(this@NewFarmerActivity, MapsActivity::class.java)
             intent.putExtra(MapsActivity.FARM, farm)
             startActivity(intent)
         }
@@ -113,7 +114,7 @@ class NewFarmerActivity : BaseActivity(), DateModal.DatePickerListener {
         viewModel.save.observe(this, {
             if (it) {
                 showMessage(binding.root, "Saving")
-                Timer().schedule(1000){
+                Timer().schedule(1000) {
                     goToDashboard()
                 }
 
@@ -122,7 +123,14 @@ class NewFarmerActivity : BaseActivity(), DateModal.DatePickerListener {
     }
 
     private fun goToDashboard() {
-        startActivity(Intent(this, DashboardActivity::class.java))
+        startActivity(
+            Intent(
+                this,
+                DashboardActivity::class.java
+            ).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            })
         finish()
     }
 
@@ -181,7 +189,7 @@ class NewFarmerActivity : BaseActivity(), DateModal.DatePickerListener {
             getString(R.string.needs_location_to_work),
             Snackbar.LENGTH_INDEFINITE
         )
-        snackbar.setAction("Enabled") {
+        snackbar.setAction("Enable") {
             canGetLocationWithPermissionCheck()
         }
     }

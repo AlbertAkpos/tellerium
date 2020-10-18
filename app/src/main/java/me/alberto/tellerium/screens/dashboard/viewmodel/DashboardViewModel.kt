@@ -19,16 +19,20 @@ class DashboardViewModel @Inject constructor(
 
     private val _farmers = MutableLiveData<List<FarmerEntity>>()
     val farmers: LiveData<List<FarmerEntity>> = _farmers
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> =_errorMessage
 
     fun getFarmers() {
         viewModelScope.launch {
             try {
+                updateValues()
                 getFarmersUseCase.execute()
                 val farmers = farmerRepository.getFarmers()
                 _farmers.value = farmers
             } catch (exp: Exception) {
                 Timber.d(exp.message.toString())
                 updateValues()
+                _errorMessage.postValue("Could'nt update from remote")
             }
         }
     }

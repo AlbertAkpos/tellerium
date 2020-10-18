@@ -14,27 +14,15 @@ import javax.inject.Inject
 import kotlin.concurrent.schedule
 
 class Splash : AppCompatActivity() {
-    @Inject
-    lateinit var getLoginUseCase: GetLoginUseCase
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as App).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         Timer().schedule(2000) {
-            checkLoginStatus()
-        }
-    }
-
-    private fun checkLoginStatus() {
-        runBlocking {
-            val loggedIn = getLoginUseCase.execute()
-            if (loggedIn) {
-                startActivity(Intent(this@Splash, DashboardActivity::class.java))
-            } else {
-                startActivity(Intent(this@Splash, LoginActivity::class.java ))
-            }
+            startActivity(Intent(this@Splash, LoginActivity::class.java ))
             finish()
         }
     }
+
 }

@@ -5,4 +5,6 @@
     <dimen name="md">20dp</dimen>
     <dimen name="md_padding">16dp</dimen>
     <dimen name="btn_height">60dp</dimen>
+    <dimen name="login_card_width">300dp</dimen>
+    <dimen name="login_card_height">400dp</dimen>
 </resources>
