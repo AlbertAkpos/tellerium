@@ -33,12 +33,6 @@ class NewFarmerViewModel @Inject constructor(private val repository: FarmerRepos
 
     fun onAddFarmer() {
 
-        println("""
-            
-            onadd farmer
-            
-        """)
-
         if (!verify()) return
         viewModelScope.launch {
             try {

@@ -3,6 +3,7 @@ package me.alberto.tellerium
 import android.app.Application
 import me.alberto.tellerium.di.component.AppComponent
 import me.alberto.tellerium.di.component.DaggerAppComponent
+import timber.log.Timber
 
 class App : Application() {
     lateinit var appComponent: AppComponent

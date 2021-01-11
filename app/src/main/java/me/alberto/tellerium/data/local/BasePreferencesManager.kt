@@ -2,9 +2,7 @@ package me.alberto.tellerium.data.local
 
 import android.content.SharedPreferences
 
-/**
- * Created by kryptkode on 10/23/2019.
- */
+
 
 abstract class BasePreferencesManager(protected val sharedPreferences: SharedPreferences) {
 
