@@ -39,7 +39,7 @@
 
         <activity
             android:name=".screens.map.view.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
         <activity android:name=".screens.newfarmer.view.NewFarmerActivity" />
         <activity android:name=".screens.dashboard.view.DashboardActivity" />
         <activity android:name=".screens.login.view.LoginActivity"
@@ -55,6 +55,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:authorities="me.alberto.tellerium.FarmerProvider"
+            android:enabled="true"
+            android:exported="true"
+            android:name=".provider.FarmerProvider"/>
     </application>
 
 </manifest>

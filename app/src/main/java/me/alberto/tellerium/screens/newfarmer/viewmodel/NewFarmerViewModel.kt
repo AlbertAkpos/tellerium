@@ -69,11 +69,6 @@ class NewFarmerViewModel @Inject constructor(private val repository: FarmerRepos
         if (name.value.isNullOrEmpty() || gender.value.isNullOrEmpty() || address.value.isNullOrEmpty()
             || dob.value.isNullOrEmpty() || image.value.isNullOrEmpty() || _farms.value.isNullOrEmpty()
         ) {
-            println("""
-               
-                false
-                
-            """)
             return false
         }
         return true
